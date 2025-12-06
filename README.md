@@ -25,3 +25,4 @@
 ```
 https://un1ver5e.ru/api/files/ny3kqx01.s1w.txt https://un1ver5e.ru/api/files/5hs0j15l.4si.txt https://un1ver5e.ru/api/files/rqdszqht.sjz.txt https://un1ver5e.ru/api/files/xujzw3wz.j2r.txt https://un1ver5e.ru/api/files/o1apoh5j.bdw.txt
 ```
+Суммарно в этих 5 файлах **72516** строк.
