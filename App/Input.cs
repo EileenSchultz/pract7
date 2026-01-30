@@ -65,6 +65,7 @@ public static class Input
 
                 while (file.Exists)
                 {
+                    //автоматически переименовываем файл если он уже существует
                     file = new FileInfo(Path.Combine(file.DirectoryName ?? Directory.GetCurrentDirectory(),
                         $"{Path.GetFileNameWithoutExtension(file.Name)}{counter}{file.Extension}"));
                     
