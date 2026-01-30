@@ -8,7 +8,7 @@ public static class Input
     /// <summary>
     /// Считывает от пользователя URL файлов из интернета.
     /// </summary>
-    public static string[] GetUris()
+    public static string[] GetUrls()
     {
         string[] result = [];
         var valid = false;
@@ -16,7 +16,8 @@ public static class Input
         {
             Console.Write("Введите нужные URL через пробел: ");
             result = Console.ReadLine()!.Split(' ');
-            valid = result.Any(x => IsValidUri(x) is false);
+            
+            valid = result.Any(x => IsValidUrl(x) is false);
             if (valid is false)
             {
                 Console.WriteLine("Ошибка! Вы ввели некорректные URL!");
@@ -26,7 +27,20 @@ public static class Input
         return result;
     }
 
-    private static bool IsValidUri(string uri) => uri.StartsWith("https://");
+    private static bool IsValidUrl(string str)
+    {
+        if (string.IsNullOrWhiteSpace(str))
+        {
+            return false;
+            
+        }
+        if (!Uri.TryCreate(str, UriKind.Absolute, out var uri))
+        {
+            return false;
+        }
+        return uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps;
+    }
+
     
     
     /// <summary>
@@ -39,7 +53,25 @@ public static class Input
             Console.Write("Введите путь до файла с результатом: ");
             try
             {
-                var file = new FileInfo(Console.ReadLine()!);
+                var path = Console.ReadLine()?.Trim();
+                if (string.IsNullOrWhiteSpace(path))
+                {
+                    Console.WriteLine("Вы ввели пустой путь :(");
+                    continue;
+                }
+                var file = new FileInfo(path);
+                
+                int counter = 1;
+
+                while (file.Exists)
+                {
+                    file = new FileInfo(Path.Combine(file.DirectoryName ?? Directory.GetCurrentDirectory(),
+                        $"{Path.GetFileNameWithoutExtension(file.Name)}{counter}{file.Extension}"));
+                    
+                    counter++;
+                }
+                
+                Console.WriteLine($"Файл сохранён: {file.FullName}");
                 return file;
             }
             catch

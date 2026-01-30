@@ -3,7 +3,7 @@
 var cts = new CancellationTokenSource();
 Console.CancelKeyPress += (_, _) => cts.Cancel();
 
-var uris = Input.GetUris();
+var uris = Input.GetUrls();
 var dest = Input.GetOutputFile();
 var destStream = dest.OpenWrite();
 
